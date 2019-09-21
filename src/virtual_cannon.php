@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 include __DIR__ . '/../vendor/autoload.php';
 
-use ItsAMirko\RayTracer\Primitives\Tuple;
+use ItsAMirko\RayTracer\Primitives\Point;
+use ItsAMirko\RayTracer\Primitives\Vector;
 
 /**
  * Class Projectile
@@ -12,12 +13,12 @@ use ItsAMirko\RayTracer\Primitives\Tuple;
 class Projectile
 {
     /**
-     * @var Tuple
+     * @var Point
      */
     public $position;
     
     /**
-     * @var Tuple
+     * @var Vector
      */
     public $velocity;
 }
@@ -28,12 +29,12 @@ class Projectile
 class Environment
 {
     /**
-     * @var Tuple
+     * @var Vector
      */
     public $gravity;
     
     /**
-     * @var Tuple
+     * @var Vector
      */
     public $wind;
 }
@@ -41,19 +42,19 @@ class Environment
 
 function tick(Environment $environment, Projectile $projectile): Projectile
 {
-    $projectile->position = $projectile->position->plus($projectile->velocity);
-    $projectile->velocity = $projectile->velocity->plus($environment->gravity)->plus($environment->wind);
+    $projectile->position = $projectile->position->plusVector($projectile->velocity);
+    $projectile->velocity = $projectile->velocity->plusVector($environment->gravity)->plusVector($environment->wind);
     
     return $projectile;
 }
 
 $environment          = new Environment();
-$environment->gravity = Tuple::createVector(0.0, -0.1, 0.0);
-$environment->wind    = Tuple::createVector(-0.01, 0.0, 0.0);
+$environment->gravity = new Vector(0.0, -0.1, 0.0);
+$environment->wind    = new Vector(-0.01, 0.0, 0.0);
 
 $projectile           = new Projectile();
-$projectile->position = Tuple::createPoint(0.0, 1.0, 0.0);
-$projectile->velocity = Tuple::createVector(1.0, 1.0, 0.0)->normalize();
+$projectile->position = new Point(0.0, 1.0, 0.0);
+$projectile->velocity = (new Vector(1.0, 1.0, 0.0))->normalize();
 
 while ($projectile->position->y() > 0) {
     echo $projectile->position->x() . ' | ' . $projectile->position->y() . PHP_EOL;
