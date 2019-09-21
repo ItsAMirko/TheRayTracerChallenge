@@ -21,7 +21,7 @@ class PointTest extends TestCase
     private $y;
     
     /**
-     * @var float|int float
+     * @var float
      */
     private $z;
     
