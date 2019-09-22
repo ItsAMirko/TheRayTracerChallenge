@@ -70,6 +70,39 @@ class Color
     
     
     /**
+     * @return int
+     */
+    public function redAsHex(): int
+    {
+        $percentage = ($this->red < 0) ? 0 : (($this->red > 1) ? 1 : $this->red);
+        
+        return (int)round(255 * $percentage);
+    }
+    
+    
+    /**
+     * @return int
+     */
+    public function greenAsHex(): int
+    {
+        $percentage = ($this->green < 0) ? 0 : (($this->green > 1) ? 1 : $this->green);
+        
+        return (int)round(255 * $percentage);
+    }
+    
+    
+    /**
+     * @return int
+     */
+    public function blueAsHex(): int
+    {
+        $percentage = ($this->blue < 0) ? 0 : (($this->blue > 1) ? 1 : $this->blue);
+        
+        return (int)round(255 * $percentage);
+    }
+    
+    
+    /**
      * @param Color $color
      *
      * @return Color

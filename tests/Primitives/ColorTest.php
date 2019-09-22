@@ -39,6 +39,32 @@ class ColorTest extends TestCase
     }
     
     
+    /**
+     * @dataProvider parametersForHexValues
+     *
+     * @param int   $red
+     * @param int   $green
+     * @param int   $blue
+     * @param Color $color
+     */
+    public function testProvidesHexValues(int $red, int $green, int $blue, Color $color): void
+    {
+        $this->assertSame($red, $color->redAsHex());
+        $this->assertSame($green, $color->greenAsHex());
+        $this->assertSame($blue, $color->blueAsHex());
+    }
+    
+    
+    public function parametersForHexValues()
+    {
+        return [
+            [255, 0, 0, new Color(1.5, 0.0, 0.0)],
+            [0, 128, 0, new Color(0.0, 0.5, 0.0)],
+            [0, 0, 255, new Color(-0.5, 0.0, 1.0)],
+        ];
+    }
+    
+    
     public function testProvidedColorValues(): void
     {
         $color = new Color($this->red, $this->green, $this->blue);
